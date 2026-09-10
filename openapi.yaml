@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Shipment API
+  description: API for managing shipments
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+  /shipments:
+    post:
+      summary: Create a shipment
+      operationId: createShipment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShipmentRequest'
+      responses:
+        '201':
+          description: Shipment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+
+    get:
+      summary: Get all shipments
+      operationId: getShipments
+      responses:
+        '200':
+          description: List of shipments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
+
+  /shipments/{id}:
+    get:
+      summary: Get a shipment
+      operationId: getShipment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Shipment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+
+        '404':
+          description: Shipment not found
+
+components:
+  schemas:
+
+    Address:
+      type: object
+      required:
+        - addressLine
+        - city
+        - state
+        - country
+        - postalCode
+      properties:
+        addressLine:
+          type: string
+          example: "123 Main Street"
+        city:
+          type: string
+          example: "Chandigarh"
+        state:
+          type: string
+          example: "Punjab"
+        country:
+          type: string
+          example: "India"
+        postalCode:
+          type: string
+          example: "160017"
+
+    Stop:
+      type: object
+      required:
+        - address
+        - sequence
+      properties:
+        id:
+          type: integer
+          example: 1
+        address:
+          $ref: '#/components/schemas/Address'
+        sequence:
+          type: integer
+          example: 1
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ARRIVED
+            - COMPLETED
+          example: PENDING
+
+    CreateShipmentRequest:
+      type: object
+      required:
+        - orderId
+        - source
+        - destination
+      properties:
+        orderId:
+          type: integer
+          example: 101
+
+        source:
+          $ref: '#/components/schemas/Address'
+
+        destination:
+          $ref: '#/components/schemas/Address'
+
+        stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+
+        orderId:
+          type: integer
+          example: 101
+
+        source:
+          $ref: '#/components/schemas/Address'
+
+        destination:
+          $ref: '#/components/schemas/Address'
+
+        stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stop'
+
+        status:
+          type: string
+          enum:
+            - PENDING
+            - IN_TRANSIT
+            - DELIVERED
+            - CANCELLED
+          example: PENDING
+
+        createdAt:
+          type: string
+          format: date-time
+
+        updatedAt:
+          type: string
+          format: date-time

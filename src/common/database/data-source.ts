@@ -12,11 +12,11 @@ export const dataSourceOptions: DataSourceOptions = {
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
 
-  entities: ['dist/modules/**/database/entities/*.{ts,js}'],
+  entities: ['dist/modules/**/domain/entities/**/*.{ts,js}'],
 
   migrations: migrationModule
-    ? [`dist/modules/${migrationModule}/database/migrations/*.{ts,js}`]
-    : ['dist/modules/**/database/migrations/*.{ts,js}'],
+    ? [`dist/modules/${migrationModule}/infrastructure/database/migrations/*.{ts,js}`]
+    : ['dist/modules/**/infrastructure/database/migrations/*.{ts,js}'],
 
   synchronize: false,
 };

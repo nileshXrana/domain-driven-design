@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Injectable } from '@nestjs/common';
 import { CreateShipmentCommand } from './create-shipment.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Shipments } from 'src/modules/shipment/infrastructure/database/entities/shipments.entity';
+import { Shipments } from '../../domain/entities/shipment/shipments.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -14,10 +14,13 @@ export class CreateShipmentHandler implements ICommandHandler<CreateShipmentComm
   ) {}
 
   async execute(command: CreateShipmentCommand) {
-    // business/application logic
+    const shipment = new Shipments();
+    shipment.create(command.createShipment);
+    await this.shipmentRepository.save(shipment);
 
     return {
-      shipmentId: '123',
+      shipmentId: shipment.id,
     };
   }
+  
 }

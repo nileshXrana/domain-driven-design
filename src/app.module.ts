@@ -5,6 +5,7 @@ import { dataSourceOptions } from './common/database/data-source';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
+import { CreateShipmentModule } from './modules/shipments/features/create-shipment/create-shipment.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { CqrsModule } from '@nestjs/cqrs';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
-    CqrsModule.forRoot()
+    CqrsModule.forRoot(),
+    CreateShipmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

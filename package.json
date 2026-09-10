@@ -6,6 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "migration:create": "npx typeorm migration:create src/modules/shipments/infrastructure/database/migrations/create-shipment",
+    "migration:run": "typeorm-ts-node-esm migration:run -d src/common/database/data-source.ts",
+    "migration:shipments": "MIGRATION_MODULE=shipments npm run migration:run",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -31,7 +34,8 @@
     "class-validator": "^0.15.1",
     "pg": "^8.23.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuid": "^14.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
