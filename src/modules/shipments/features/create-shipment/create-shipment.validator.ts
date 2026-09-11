@@ -6,7 +6,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { StopType } from '../../domain/enums/stops.enum';
+import { StopType } from '../../domain/shipments/enums/stops.enum';
 
 export class AddressValidator {
   @IsNotEmpty()

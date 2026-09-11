@@ -1,9 +1,10 @@
 import { Command } from '@nestjs/cqrs';
 import { StopValidator } from './create-shipment.validator';
-import { ShipmentStatus } from '../../domain/enums/shipments.enum';
 
 export class CreateShipmentCommand extends Command<{
-  shipmentId: string;
+  message: string;
+  status: number;
+  data: Object;
 }> {
   constructor(
     public readonly createShipment: {

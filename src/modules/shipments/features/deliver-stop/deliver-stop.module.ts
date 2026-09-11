@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from 'node_modules/@nestjs/typeorm/dist/typeorm.module';
-import { CreateShipmentController } from './create-shipment.controller';
-import { CreateShipmentHandler } from './create-shipment.handler';
+import { DeliverStopController } from './deliver-stop.controller';
+import { DeliverStopHandler } from './deliver-stop.handler';
 import { Shipments } from '../../domain/shipments/shipments.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Shipments])],
-  controllers: [CreateShipmentController],
-  providers: [CreateShipmentHandler],
+  controllers: [DeliverStopController],
+  providers: [DeliverStopHandler],
 })
-export class CreateShipmentModule {}
+export class DeliverStopModule {}
