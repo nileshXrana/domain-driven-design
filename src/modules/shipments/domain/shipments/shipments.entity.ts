@@ -122,6 +122,10 @@ export class Shipments {
     }
 
     stop.pickupStop();
+
+    if (stop.sequence === this.stops.length) {
+      this.status = ShipmentStatus.DELIVERED;
+    }
   }
 
   // update stop to departed
@@ -132,5 +136,9 @@ export class Shipments {
     }
 
     stop.deliveryStop();
+
+    if (stop.sequence === this.stops.length) {
+      this.status = ShipmentStatus.DELIVERED;
+    }
   }
 }
